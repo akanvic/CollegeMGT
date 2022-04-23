@@ -48,7 +48,7 @@ namespace CollegeMGT.Service.Implementation
             return course;
         }
 
-        public async void DeleteCourse(int courseId)
+        public async Task DeleteCourse(int courseId)
         {
             _unitOfWork.CourseRepository.Remove(courseId);
             await _unitOfWork.Save();

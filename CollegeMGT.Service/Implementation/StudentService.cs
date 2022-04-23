@@ -39,9 +39,10 @@ namespace CollegeMGT.Service.Implementation
             return student;
         }
 
-        public void DeleteStudent(int studentId)
+        public async Task DeleteStudent(int studentId)
         {
-            throw new NotImplementedException();
+            _unitOfWork.StudentRepository.Remove(studentId);
+            await _unitOfWork.Save();
         }
 
         public async Task<IEnumerable<Student>> GetAllStudents()

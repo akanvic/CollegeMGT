@@ -174,13 +174,25 @@ namespace CollegeMGT.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteStudentGrade(int id)
         {
-            var student = await _studentService.GetStudentById(id);
+            var student = await _studentGradeService.GetStudentGradeByStudentGradeId(id);
 
             if (student == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
             await _studentGradeService.DeleteStudentGrade(id);
+            return Json(new { success = true, message = "Delete Successful" });
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            var student = await _studentService.GetStudentById(id);
+
+            if (student == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+            await _studentService.DeleteStudent(id);
             return Json(new { success = true, message = "Delete Successful" });
         }
         #endregion

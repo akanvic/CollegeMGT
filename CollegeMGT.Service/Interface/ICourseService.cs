@@ -15,7 +15,6 @@ namespace CollegeMGT.Service.Interface
 
         Task<Course> UpdateCourse(CourseDto courseDto);
         Task<Course> GetCourseById(int courseId);
-        void DeleteCourse(int courseId);
-
+        Task DeleteCourse(int courseId);
     }
 }

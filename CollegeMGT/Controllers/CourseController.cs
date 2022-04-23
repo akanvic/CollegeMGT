@@ -77,7 +77,7 @@ namespace CollegeMGT.Controllers
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
-            _courseService.DeleteCourse(id);
+            await _courseService.DeleteCourse(id);
             return Json(new { success = true, message = "Delete Successful" });
         }
         #endregion

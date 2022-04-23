@@ -31,7 +31,7 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
                 teacherFromDb.TeacherBirthDate = teacher.Teacher.TeacherBirthDate;
                 teacherFromDb.TeacherSalary = teacher.Teacher.TeacherSalary;
             }
-            return teacherFromDb;
+            return teacherFromDb!;
         }
     }
 }

@@ -18,7 +18,6 @@ namespace CollegeMGT.Controllers
         public CourseDto CourseDto { get; set; }
         public async Task<IActionResult> Index()
         {
-            //var courses  = await _courseService.GetAllCourses();
             return View();
         }
         public async Task<IActionResult> AddCourse(int? id)

@@ -1,5 +1,6 @@
 ﻿using CollegeMGT.Core.Models;
 using CollegeMGT.Core.View_Models;
+using CollegeMGT.Core.Views;
 using CollegeMGT.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,13 +11,27 @@ namespace CollegeMGT.Controllers
     {
         private readonly IStudentService _studentService;
         private readonly ICourseService _courseService;
+        private readonly ISubjectService _subjectService;
+        private readonly IGradeService _gradeService;
+        private readonly IStudentGradeService _studentGradeService;
+
 
         [BindProperty]
         public StudentViewModel StudentVM { get; set; }
-        public StudentController(IStudentService studentService, ICourseService courseService)
+
+        [BindProperty]
+        public RecordStudentGradeVm RecordStudentGradeVm { get; set; }
+        public StudentController(IStudentService studentService, 
+                                ICourseService courseService, 
+                                ISubjectService subjectService, 
+                                IGradeService gradeService,
+                                IStudentGradeService studentGradeService)
         {
             _studentService = studentService;
             _courseService = courseService;
+            _subjectService = subjectService;
+            _gradeService = gradeService;
+            _studentGradeService = studentGradeService;
         }
         public IActionResult Index()
         {
@@ -31,7 +46,7 @@ namespace CollegeMGT.Controllers
                 {
                     Text = i.CourseName,
                     Value = i.CourseId.ToString()
-                })
+                }),
             };
             if (id == null)
             {
@@ -52,7 +67,7 @@ namespace CollegeMGT.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (StudentVM.Student.StudentId == 0)
+                if (StudentVM.Student!.StudentId == 0)
                 {
                     await _studentService.AddStudent(StudentVM);
                 }
@@ -69,14 +84,78 @@ namespace CollegeMGT.Controllers
                     Text = i.CourseName,
                     Value = i.CourseId.ToString()
                 });
-                if (StudentVM.Student.StudentId != 0)
+                if (StudentVM.Student!.StudentId != 0)
                 {
                     StudentVM.Student = await _studentService.GetStudentById(StudentVM.Student.StudentId);
                 }
             }
             return View(StudentVM);
         }
+        public async Task<IActionResult> RecordStudentGrade(int? id)
+        {
 
+            RecordStudentGradeVm studentVM = new RecordStudentGradeVm()
+            {
+                SubjectList = _subjectService.GetSubjectsByCourseId(_studentService.GetCourseIdByStudentId(id).Result).Result.Select(i => new SelectListItem
+                {
+                    Text = i.SubjectName,
+                    Value = i.SubjectId.ToString()
+                }),
+                GradeList = _gradeService.GetAllGrades().Result.Select(i => new SelectListItem
+                {
+                    Text = i.GradeName,
+                    Value = i.GradeId.ToString()
+                }),
+            };
+            studentVM.StudentGradeVw = _studentService.GetStudentByStudentId(id).Result;
+            if (studentVM.StudentGradeVw.StudentGradeId == 0)
+            {
+                //this is for create
+                return View(studentVM);
+            }
+            //this is for edit
+            studentVM.StudentGradeVw = await _studentGradeService.GetStudentGradeByStudentId(id.GetValueOrDefault());
+            if (studentVM.StudentGradeVw == null)
+            {
+                return NotFound();
+            }
+            return View(studentVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RecordStudentGrade()
+        {
+            if (ModelState.IsValid)
+            {
+                if (RecordStudentGradeVm.StudentGradeVw!.StudentGradeId == 0)
+                {
+                    await _studentGradeService.AddStudentGrade(RecordStudentGradeVm);
+                }
+                else
+                {
+                    await _studentGradeService.UpdateStudentGrade(RecordStudentGradeVm);
+                }
+                return RedirectToAction(nameof(GetAllStudentGrades));
+            }
+            else
+            {
+                RecordStudentGradeVm.SubjectList = _subjectService.GetAllSubjects().Result.Select(i => new SelectListItem
+                {
+                    Text = i.SubjectName,
+                    Value = i.SubjectId.ToString()
+                });
+                if (RecordStudentGradeVm.StudentGradeVw!.StudentId != 0)
+                {
+                    RecordStudentGradeVm.Student = await _studentService.GetStudentById(RecordStudentGradeVm.Student!.StudentId);
+                }
+            }
+            return View(RecordStudentGradeVm);
+        }
+        
+        public IActionResult GetAllStudentGrades()
+        {
+            return View();
+        }
         #region API CALLS
 
         [HttpGet]
@@ -85,25 +164,25 @@ namespace CollegeMGT.Controllers
             var students = await _studentService.GetAllStudents();
             return Json(new { data = students });
         }
+        [HttpGet]
+        public async Task<IActionResult> GetStudentGrades()
+        {
+            var studentGrades = await _studentGradeService.GetAllStudentGrades();
+            return Json(new { data = studentGrades });
+        }
 
-        //[HttpDelete]
-        //public IActionResult Delete(int id)
-        //{
-        //    var objFromDb = _unitOfWork.Product.Get(id);
-        //    if (objFromDb == null)
-        //    {
-        //        return Json(new { success = false, message = "Error while deleting" });
-        //    }
-        //    string webRootPath = _hostEnvironment.WebRootPath;
-        //    var imagePath = Path.Combine(webRootPath, objFromDb.ImageUrl.TrimStart('\\'));
-        //    if (System.IO.File.Exists(imagePath))
-        //    {
-        //        System.IO.File.Delete(imagePath);
-        //    }
-        //    _unitOfWork.Product.Remove(objFromDb);
-        //    _unitOfWork.Save();
-        //    return Json(new { success = true, message = "Delete Successful" });
-        //}
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStudentGrade(int id)
+        {
+            var student = await _studentService.GetStudentById(id);
+
+            if (student == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+            await _studentGradeService.DeleteStudentGrade(id);
+            return Json(new { success = true, message = "Delete Successful" });
+        }
         #endregion
 
     }

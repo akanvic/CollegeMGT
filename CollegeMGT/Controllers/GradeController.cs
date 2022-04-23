@@ -14,7 +14,6 @@ namespace CollegeMGT.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            //var courses  = await _courseService.GetAllCourses();
             return View();
         }
         public async Task<IActionResult> Upsert(int? id)

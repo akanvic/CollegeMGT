@@ -28,7 +28,7 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
                 gradeFromDb.GradeName = grade.GradeName;
                 gradeFromDb.GradeValue = grade.GradeValue;
             }
-            return gradeFromDb;
+            return gradeFromDb!;
         }
     }
 }

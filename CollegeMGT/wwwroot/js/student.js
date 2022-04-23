@@ -10,10 +10,10 @@ function loadDataTable() {
             "url": "/Student/GetAllStudents",
         },
         "columns": [
-            { "data": "studentName", "width": "25%" },
-            { "data": "course.courseName", "width": "25%" },
-            { "data": "studentBirthDate", "width": "25%" },
-            { "data": "studentRegistrationNumber", "width": "25%" },
+            { "data": "studentName", "width": "20%" },
+            { "data": "course.courseName", "width": "20%" },
+            { "data": "studentBirthDate", "width": "15%" },
+            { "data": "studentRegistrationNumber", "width": "15%" },
             {
                 "data": "studentId",
                 "render": function (data) {
@@ -21,13 +21,17 @@ function loadDataTable() {
                             <div class="text-center">
                                 <a href="/Student/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i> 
-                                </a>
+                                </a>&nbsp;&nbsp;&nbsp;
+
+                                <a href="/Student/RecordStudentGrade/${data}" class="btn btn-primary text-white" style="cursor:pointer">
+                                    <i class="fas fa-plus"></i> Grade
+                                </a>&nbsp;&nbsp;
                                 <a onclick=Delete("/Student/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                     <i class="fas fa-trash-alt"></i> 
                                 </a>
                             </div>
                            `;
-                }, "width": "25%"
+                }, "width": "55%"
             }
         ]
     });

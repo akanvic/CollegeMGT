@@ -6,11 +6,11 @@
 <form method="post">
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @if(Model.Student.StudentId != 0)
+        @if(Model!.Student.StudentId != 0)
         {
             //Edit
             title = "Update Student";
-            <input type="hidden" asp-for="Student.StudentId" />
+            <input type="hidden" asp-for="Student!.StudentId" />
         }
         <div class="col-12 border-bottom">
             <h2 class="text-primary">@title</h2>
@@ -18,21 +18,21 @@
         <div class="col-8 pt-4">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Student.StudentName"></label>
+                    <label asp-for="Student!.StudentName"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Student.StudentName" class="form-control" />
-                    <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+                    <input asp-for="Student!.StudentName" class="form-control" />
+                    <span asp-validation-for="Student!.StudentName" class="text-danger"></span>
                 </div>
             </div>
             <br />
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Student.StudentBirthDate"></label>
+                    <label asp-for="Student!.StudentBirthDate"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Student.StudentBirthDate" class="form-control" />
-                    <span asp-validation-for="Student.StudentBirthDate" class="text-danger"></span>
+                    <input asp-for="Student!.StudentBirthDate" class="form-control" />
+                    <span asp-validation-for="Student!.StudentBirthDate" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
@@ -40,8 +40,8 @@
                     Course
                 </div>
                 <div class="col-8">
-                    @Html.DropDownListFor(c => c.Student.CourseId, Model.CourseList, "-Select a Course", new { @class = "form-control" })
-                    <span asp-validation-for="Student.CourseId" class="text-danger"></span>
+                    @Html.DropDownListFor(c => c.Student!.CourseId, Model.CourseList, "-Select a Course", new { @class = "form-control" })
+                    <span asp-validation-for="Student!.CourseId" class="text-danger"></span>
                 </div>
             </div>
             <br />

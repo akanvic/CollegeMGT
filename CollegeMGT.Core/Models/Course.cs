@@ -11,6 +11,5 @@ namespace CollegeMGT.Core.Models
         public int CourseId { get; set; }
         public string CourseName { get; set; }
 
-        //public virtual ICollection<Subject> Subjects { get; set; }
     }
 }

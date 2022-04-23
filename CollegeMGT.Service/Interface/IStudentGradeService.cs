@@ -1,5 +1,6 @@
 ﻿using CollegeMGT.Core.Models;
 using CollegeMGT.Core.View_Models;
+using CollegeMGT.Core.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,12 @@ namespace CollegeMGT.Service.Interface
 {
     public interface IStudentGradeService
     {
-        Task<StudentGrade> AddStudentGrade(StudentGradeViewModel studentVM);
+        Task<StudentGrade> AddStudentGrade(RecordStudentGradeVm studentVM);
         Task<IEnumerable<StudentGrade>> GetAllStudentGrades();
 
-        Task<StudentGrade> UpdateStudentGrade(StudentGradeViewModel studentVm);
+        Task<StudentGrade> UpdateStudentGrade(RecordStudentGradeVm studentVm);
         Task<StudentGrade> GetStudentGradeByStudentGradeId(int studentGradeId);
-        void DeleteStudentGrade(int studentId);
+        Task<StudentGradeVw> GetStudentGradeByStudentId(int studentId);
+        Task DeleteStudentGrade(int studentId);
     }
 }

@@ -18,10 +18,5 @@ namespace CollegeMGT.Core.Models
         [Display(Name = "Date of Birth")]
         public DateTime TeacherBirthDate { get; set; }
         public decimal TeacherSalary { get; set; }
-
-        //public int CourseId { get; set; }
-
-        //[ForeignKey("CourseId")]
-        //public Course Course { get; set; }
     }
 }

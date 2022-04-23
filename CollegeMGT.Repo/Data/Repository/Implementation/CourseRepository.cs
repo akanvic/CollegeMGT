@@ -27,7 +27,7 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
             {
                 courseFromDb.CourseName = course.CourseName;
             }
-            return courseFromDb;
+            return courseFromDb!;
         }
     }
 }

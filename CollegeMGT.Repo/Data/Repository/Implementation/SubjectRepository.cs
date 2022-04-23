@@ -29,7 +29,7 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
                 subjectFromDb.CourseId = subjectVm.Subject.CourseId;
                 subjectFromDb.TeacherId = subjectVm.Subject.TeacherId;
             }
-            return subjectFromDb;
+            return subjectFromDb!;
         }
         public async Task<Subject> AddTeacherToSubject(AddTeacherToSubjectVm subjectVm)
         {
@@ -41,12 +41,12 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
 
                 //_collegeDbContext.Update(subjectVm.Subject.TeacherId);
             }
-            return subjectFromDb;
+            return subjectFromDb!;
         }
         public async Task<Subject> GetCourseIdBySubjectId(int? subjectId)
         {
             var subjectFromDb = await _collegeDbContext.Subjects.FirstOrDefaultAsync(c => c.SubjectId == subjectId);
-            return subjectFromDb;
+            return subjectFromDb!;
         }
     }
 }

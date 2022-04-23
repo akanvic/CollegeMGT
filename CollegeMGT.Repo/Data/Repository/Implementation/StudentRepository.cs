@@ -25,11 +25,17 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
 
             if (studentFromDb != null)
             {
-                studentFromDb.StudentName = studentVm.Student.StudentName;
+                studentFromDb.StudentName = studentVm.Student!.StudentName;
                 studentFromDb.CourseId = studentVm.Student.CourseId;
                 studentFromDb.StudentBirthDate = studentVm.Student.StudentBirthDate;
             }
-            return studentFromDb;
+            return studentFromDb!;
+        }
+
+        public async Task<Student> GetCourseIdByStudentId(int? studentId)
+        {
+            var courseFromDb = await _collegeDbContext.Students.FirstOrDefaultAsync(c => c.StudentId == studentId);
+            return courseFromDb!;
         }
     }
 }

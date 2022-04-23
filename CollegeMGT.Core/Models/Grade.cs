@@ -12,6 +12,5 @@ namespace CollegeMGT.Core.Models
         public string GradeName { get; set; }
         public int GradeValue { get; set; }
 
-        //public ICollection<Student> Students { get; set; }
     }
 }

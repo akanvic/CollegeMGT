@@ -12,6 +12,7 @@ namespace CollegeMGT.Repo.Data.Repository.Interface
     public interface IStudentRepository : IGenericRepository<Student>
     {
         Task<Student> UpdateStudent(StudentViewModel studentVm);
+        Task<Student> GetCourseIdByStudentId(int? studentId);
 
     }
 }

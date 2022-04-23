@@ -11,6 +11,6 @@ namespace CollegeMGT.Repo.Data.Repository.Interface
 {
     public interface IStudentGradeRepository : IGenericRepository<StudentGrade>
     {
-        Task<StudentGrade> UpdateStudentGrade(StudentGradeViewModel studentVm);
+        Task<StudentGrade> UpdateStudentGrade(RecordStudentGradeVm studentVm);
     }
 }

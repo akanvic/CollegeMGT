@@ -1,10 +1,10 @@
 ﻿<br />
 <div class="row">
     <div class="col-6">
-        <h2 class="text-dark">List of Students </h2>
+        <h2 class="text-dark">List of Students and there Grades</h2>
     </div>
     <div class="col-6 text-right">
-        <a class="btn btn-primary" asp-action="Upsert"><i class="fas fa-plus"></i> &nbsp; Create New Student</a>
+        <a class="btn btn-primary" asp-action="Index"><i class="fas fa-arrow-left"></i> &nbsp; Back to Student List</a>
     </div>
 </div>
 
@@ -14,9 +14,8 @@
         <thead class="thead-dark">
             <tr class="table-info">
                 <th>Name of Student</th>
-                <th>Name of Course</th>
-                <th>Date of Birth</th>
-                <th>Registration Number</th>
+                <th>Name of Subject</th>
+                <th>Grade</th>
                 <th>
 
                 </th>
@@ -26,6 +25,6 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/student.js"></script>
+    <script src="~/js/studentGrade.js"></script>
 }
 

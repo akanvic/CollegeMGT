@@ -13,7 +13,6 @@ namespace CollegeMGT.Core.Models
         public int SubjectId { get; set; }
         [Required]
         public string SubjectName { get; set; }
-        //public virtual ICollection<Student> Students { get; set; }
 
         [Required]
         public int CourseId { get; set; }

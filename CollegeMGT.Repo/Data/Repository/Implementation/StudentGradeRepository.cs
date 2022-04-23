@@ -2,6 +2,7 @@
 using CollegeMGT.Core.View_Models;
 using CollegeMGT.Repo.Data.GenericRepository.Implementations;
 using CollegeMGT.Repo.Data.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,16 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
             _collegeDbContext = collegeDbContext;
         }
 
-        public Task<StudentGrade> UpdateStudentGrade(StudentGradeViewModel studentVm)
+        public async Task<StudentGrade> UpdateStudentGrade(RecordStudentGradeVm studentVm)
         {
-            throw new NotImplementedException();
+            var studentGradeFromDb = await _collegeDbContext.StudentGrades.FirstOrDefaultAsync(c => c.StudentGradeId == studentVm.StudentGradeVw.StudentGradeId);
+
+            if (studentGradeFromDb != null)
+            {
+                studentGradeFromDb.GradeId = studentVm.StudentGradeVw!.GradeId;
+                studentGradeFromDb.SubjectId = studentVm.StudentGradeVw.SubjectId;
+            }
+            return studentGradeFromDb!;
         }
     }
 }

@@ -1,0 +1,58 @@
+﻿@model CollegeMGT.Core.View_Models.AddTeacherToSubjectVm;
+
+@{ 
+    var title = "Add Subject";
+}
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if(Model.Subject.SubjectId != 0)
+        {
+            //Edit
+            title = "Update Subject";
+            <input type="hidden" asp-for="Subject.SubjectId" />
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Subject.SubjectName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Subject.SubjectName" class="form-control" />
+                    <span asp-validation-for="Subject.SubjectName" class="text-danger"></span>
+                </div>
+            </div>
+            
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    Teacher
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(c => c.Subject.TeacherId, Model.TeacherList, "-Select a Teacher", new { @class = "form-control" })
+                    @*<span asp-validation-for="Subject.TeacherId" class="text-danger"></span>*@
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-8 offset-4  ">
+                    @if (Model.Subject.SubjectId != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.Subject.SubjectId" />
+                    }
+                    else
+                    {
+                        <partial name="_CreateAndBackToListButton" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+ }

@@ -1,0 +1,47 @@
+﻿@model CollegeMGT.Core.Models.Course
+
+@{ 
+    var title = "Add Course";
+}
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if(Model.CourseId != 0)
+        {
+            //Edit
+            title = "Update Course";
+            <input type="hidden" asp-for="CourseId" />
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CourseName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CourseName" class="form-control" />
+                    <span asp-validation-for="CourseName" class="text-danger"></span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-8 offset-4  ">
+                    @if (Model.CourseId != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.CourseId" />
+                    }
+                    else
+                    {
+                        <partial name="_CreateAndBackToListButton" model="Model.CourseId" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+ }

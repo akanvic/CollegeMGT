@@ -1,0 +1,78 @@
+﻿@model CollegeMGT.Core.View_Models.TeacherViewModel;
+
+@{ 
+    var title = "Add Teacher";
+}
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if(Model.Teacher.TeacherId != 0)
+        {
+            //Edit
+            title = "Update Teacher";
+            <input type="hidden" asp-for="Teacher.TeacherId" />
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Teacher.TeacherName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Teacher.TeacherName" class="form-control" />
+                    <span asp-validation-for="Teacher.TeacherName" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Teacher.TeacherBirthDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Teacher.TeacherBirthDate".ToString("yyyy-MM-dd") class="form-control" new {@class = "datepicker"} />
+                    <span asp-validation-for="Teacher.TeacherBirthDate" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+           <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Teacher.TeacherSalary"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Teacher.TeacherSalary" class="form-control" />
+                    <span asp-validation-for="Teacher.TeacherSalary" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <br>
+            <div class="form-group row">
+                <div class="col-8 offset-4  ">
+                    @if (Model.Teacher.TeacherId != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.Teacher.TeacherId" />
+                    }
+                    else
+                    {
+                        <partial name="_CreateAndBackToListButton" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+ <script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+
+        });
+    });
+</script>
+}

@@ -1,0 +1,67 @@
+﻿@model CollegeMGT.Core.View_Models.StudentViewModel;
+
+@{ 
+    var title = "Add Student";
+}
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if(Model.Student.StudentId != 0)
+        {
+            //Edit
+            title = "Update Student";
+            <input type="hidden" asp-for="Student.StudentId" />
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Student.StudentName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Student.StudentName" class="form-control" />
+                    <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Student.StudentBirthDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Student.StudentBirthDate" class="form-control" />
+                    <span asp-validation-for="Student.StudentBirthDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    Course
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(c => c.Student.CourseId, Model.CourseList, "-Select a Course", new { @class = "form-control" })
+                    <span asp-validation-for="Student.CourseId" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group row">
+                <div class="col-8 offset-4  ">
+                    @if (Model.Student.StudentId != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.Student.StudentId" />
+                    }
+                    else
+                    {
+                        <partial name="_CreateAndBackToListButton" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+ }

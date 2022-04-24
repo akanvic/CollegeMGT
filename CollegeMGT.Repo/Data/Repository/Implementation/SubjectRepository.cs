@@ -31,18 +31,6 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
             }
             return subjectFromDb!;
         }
-        public async Task<Subject> AddTeacherToSubject(AddTeacherToSubjectVm subjectVm)
-        {
-            var subjectFromDb = await _collegeDbContext.Subjects.FirstOrDefaultAsync(c => c.SubjectId == subjectVm.Subject.SubjectId);
-
-            if (subjectFromDb != null)
-            {
-                subjectFromDb.TeacherId = subjectVm.Subject.TeacherId;
-
-                //_collegeDbContext.Update(subjectVm.Subject.TeacherId);
-            }
-            return subjectFromDb!;
-        }
         public async Task<Subject> GetCourseIdBySubjectId(int? subjectId)
         {
             var subjectFromDb = await _collegeDbContext.Subjects.FirstOrDefaultAsync(c => c.SubjectId == subjectId);

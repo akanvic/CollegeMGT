@@ -18,7 +18,6 @@ namespace CollegeMGT.Service.Interface
         Task<Subject> GetSubjectById(int subjectId);
         Task DeleteSubject(int subjectId);
         Task<IEnumerable<Subject>> GetSubjectsByCourseId(int courseId);
-        Task<Subject> AddTeacherToSubject(AddTeacherToSubjectVm subjectVm);
         Task<int> GetCourseIdBySubjectId(int? subjectId);
     }
 }

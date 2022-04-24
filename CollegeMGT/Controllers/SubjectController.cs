@@ -17,8 +17,6 @@ namespace CollegeMGT.Controllers
         [BindProperty]
         public SubjectViewModel SubjectVM { get; set; }
 
-        [BindProperty]
-        public AddTeacherToSubjectVm AddTeacherToSubjectVm { get; set; }
         public SubjectController(ISubjectService subjectService, ICourseService courseService, ITeacherService teacherService)
         {
             _subjectService = subjectService;
@@ -92,50 +90,6 @@ namespace CollegeMGT.Controllers
                 }
             }
             return View(SubjectVM);
-        }
-
-
-        public async Task<IActionResult> AddTeacherToSubject(int? id)
-        {
-            AddTeacherToSubjectVm addTeacherToSubjectVM = new AddTeacherToSubjectVm()
-            {
-                Subject = new Subject(),
-                TeacherList = _teacherService.GetAvailableTeachers(_subjectService.GetCourseIdBySubjectId(id).Result).Result.Select(i => new SelectListItem
-                {
-                    Text = i.TeacherName,
-                    Value = i.TeacherId.ToString()
-                })
-            };
-            //this is for edit
-            addTeacherToSubjectVM.Subject = await _subjectService.GetSubjectById(id.GetValueOrDefault());
-            if (addTeacherToSubjectVM.Subject == null)
-            {
-                return NotFound();
-            }
-            return View(addTeacherToSubjectVM);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddTeacherToSubject()
-        {
-            if (ModelState.IsValid)
-            {
-                await _subjectService.AddTeacherToSubject(AddTeacherToSubjectVm);
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                AddTeacherToSubjectVm.TeacherList = _teacherService.GetAvailableTeachers(AddTeacherToSubjectVm.Subject.CourseId).Result.Select(i => new SelectListItem
-                {
-                    Text = i.TeacherName,
-                    Value = i.TeacherId.ToString()
-                });
-                if (SubjectVM.Subject.SubjectId != 0)
-                {
-                    SubjectVM.Subject = await _subjectService.GetSubjectById(SubjectVM.Subject.SubjectId);
-                }
-            }
-            return View(AddTeacherToSubjectVm);
         }
 
         #region API CALLS

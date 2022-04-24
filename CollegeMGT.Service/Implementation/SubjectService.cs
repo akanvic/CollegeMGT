@@ -31,12 +31,6 @@ namespace CollegeMGT.Service.Implementation
             await _unitOfWork.Save();
             return subject;
         }
-        public async Task<Subject> AddTeacherToSubject(AddTeacherToSubjectVm subjectVm)
-        {
-            var subject = await _unitOfWork.SubjectRepository.AddTeacherToSubject(subjectVm);
-            await _unitOfWork.Save();
-            return subject;
-        }
         public async Task<IEnumerable<Subject>> GetSubjectsByCourseId(int courseId)
         {
             var subjects = await _unitOfWork.SubjectRepository.FindByConditionAsync(c => c.CourseId == courseId, true);

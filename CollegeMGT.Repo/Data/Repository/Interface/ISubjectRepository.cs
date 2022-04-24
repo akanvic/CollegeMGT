@@ -13,7 +13,6 @@ namespace CollegeMGT.Repo.Data.Repository.Interface
     public interface ISubjectRepository : IGenericRepository<Subject>
     {
         Task<Subject> UpdateSubject(SubjectViewModel subjectVm);
-        Task<Subject> AddTeacherToSubject(AddTeacherToSubjectVm subjectVm);
         Task<Subject> GetCourseIdBySubjectId(int? subjectId);
     }
 }

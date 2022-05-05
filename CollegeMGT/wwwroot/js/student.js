@@ -23,7 +23,7 @@ function loadDataTable() {
                                     <i class="fas fa-edit"></i> 
                                 </a>&nbsp;&nbsp;&nbsp;
 
-                                <a href="/Student/RecordStudentGrade/${data}" class="btn btn-primary text-white" style="cursor:pointer">
+                                <a href="/Student/RecordStudentGradeV2/${data}" class="btn btn-primary text-white" style="cursor:pointer">
                                     <i class="fas fa-plus"></i> Grade
                                 </a>&nbsp;&nbsp;
                                 <a onclick=Delete("/Student/DeleteStudent/${data}") class="btn btn-danger text-white" style="cursor:pointer">

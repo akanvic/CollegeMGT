@@ -65,7 +65,16 @@ namespace CollegeMGT.Service.Implementation
                 }); ;
             return studentGrade;
         }
-        public async Task<StudentGrade> UpdateStudentGrade(RecordStudentGradeVm studentVm)
+        public async Task<StudentGradeVw> GetStudentGradeById(int studentGradeId)
+        {
+            var studentGrade = await _studentGradeVw.QueryFirstOrDefaultAsyncSp(StoredProcedures.uspGetStudentGradeByStudentGradeId,
+                CommandType.StoredProcedure, new
+                {
+                    StudentGradeId = studentGradeId
+                }); ;
+            return studentGrade;
+        }
+        public async Task<StudentGrade> UpdateStudentGrade(UpdateStudentGradeVm studentVm)
         {
             var studentGrade = await _unitOfWork.StudentGradeRepository.UpdateStudentGrade(studentVm);
             await _unitOfWork.Save();

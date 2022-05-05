@@ -23,6 +23,9 @@ namespace CollegeMGT.Controllers
 
         [BindProperty]
         public RecordStudentGradeVm RecordStudentGradeVm { get; set; }
+        
+        [BindProperty]
+        public UpdateStudentGradeVm UpdateStudentGradeVm { get; set; }
         public StudentController(IStudentService studentService, 
                                 ICourseService courseService, 
                                 ISubjectService subjectService, 
@@ -135,7 +138,7 @@ namespace CollegeMGT.Controllers
                 }
                 else
                 {
-                    await _studentGradeService.UpdateStudentGrade(RecordStudentGradeVm);
+                    await _studentGradeService.UpdateStudentGrade(UpdateStudentGradeVm);
                 }
                 return RedirectToAction(nameof(GetAllStudentGrades));
             }
@@ -153,7 +156,100 @@ namespace CollegeMGT.Controllers
             }
             return View(RecordStudentGradeVm);
         }
-        
+
+        public async Task<IActionResult> RecordStudentGradeV2(int? id)
+        {
+            RecordStudentGradeVm studentVM = new RecordStudentGradeVm()
+            {
+                Student = new Student(),
+                SubjectList = _subjectService.GetSubjectsByCourseId(
+                    _studentService.GetCourseIdByStudentId(id).Result).Result.Select(i => new SelectListItem
+                {
+                    Text = i.SubjectName,
+                    Value = i.SubjectId.ToString()
+                }),
+                GradeList = _gradeService.GetAllGrades().Result.Select(i => new SelectListItem
+                {
+                    Text = i.GradeName,
+                    Value = i.GradeId.ToString()
+                }),
+            };
+            studentVM.StudentGradeVw = _studentService.GetStudentByStudentId(id).Result;
+
+            return View(studentVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RecordStudentGradeV2()
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentGradeService.AddStudentGrade(RecordStudentGradeVm);
+                return RedirectToAction(nameof(GetAllStudentGrades));
+            }
+            else
+            {
+                RecordStudentGradeVm.SubjectList = _subjectService.GetAllSubjects().Result.Select(i => new SelectListItem
+                {
+                    Text = i.SubjectName,
+                    Value = i.SubjectId.ToString()
+                });
+                if (RecordStudentGradeVm.StudentGradeVw!.StudentId != 0)
+                {
+                    RecordStudentGradeVm.Student = await _studentService.GetStudentById(RecordStudentGradeVm.Student!.StudentId);
+                }
+            }
+            return View(RecordStudentGradeVm);
+        }
+
+        public async Task<IActionResult> UpdateStudentGrade(int? id)
+        {
+            UpdateStudentGradeVm studentVM = new UpdateStudentGradeVm()
+            {
+                StudentGradeVw = new StudentGradeVw(),
+                GradeList = _gradeService.GetAllGrades().Result.Select(i => new SelectListItem
+                {
+                    Text = i.GradeName,
+                    Value = i.GradeId.ToString()
+                }),
+            };
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            studentVM.StudentGradeVw = await _studentGradeService.GetStudentGradeById(id.GetValueOrDefault());
+            if (studentVM.StudentGradeVw == null)
+            {
+                return NotFound();
+            }
+            return View(studentVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateStudentGrade()
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentGradeService.UpdateStudentGrade(UpdateStudentGradeVm);
+                return RedirectToAction(nameof(GetAllStudentGrades));
+            }
+            else
+            {
+                UpdateStudentGradeVm.GradeList = _gradeService.GetAllGrades().Result.Select(i => new SelectListItem
+                {
+                    Text = i.GradeName,
+                    Value = i.GradeId.ToString()
+                });
+                //if (UpdateStudentGradeVm.StudentGradeVw.StudentId != 0)
+                //{
+                //    UpdateStudentGradeVm.StudentGradeVw.StudentId = await _studentService.GetStudentById(UpdateStudentGradeVm.StudentGradeVw.StudentId);
+                //}
+            }
+            return View(UpdateStudentGradeVm);
+        }
         public IActionResult GetAllStudentGrades()
         {
             return View();

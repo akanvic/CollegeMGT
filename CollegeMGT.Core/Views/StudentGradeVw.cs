@@ -13,5 +13,6 @@ namespace CollegeMGT.Core.Views
         public int StudentId { get; set; }
         public int SubjectId { get; set; }
         public int GradeId { get; set; }
+        public string SubjectName { get; set; }
     }
 }

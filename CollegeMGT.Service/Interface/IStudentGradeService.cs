@@ -14,9 +14,10 @@ namespace CollegeMGT.Service.Interface
         Task<StudentGrade> AddStudentGrade(RecordStudentGradeVm studentVM);
         Task<IEnumerable<StudentGrade>> GetAllStudentGrades();
 
-        Task<StudentGrade> UpdateStudentGrade(RecordStudentGradeVm studentVm);
+        Task<StudentGrade> UpdateStudentGrade(UpdateStudentGradeVm studentVm);
         Task<StudentGrade> GetStudentGradeByStudentGradeId(int studentGradeId);
         Task<StudentGradeVw> GetStudentGradeByStudentId(int studentId);
         Task DeleteStudentGrade(int studentId);
+        Task<StudentGradeVw> GetStudentGradeById(int studentGradeId);
     }
 }

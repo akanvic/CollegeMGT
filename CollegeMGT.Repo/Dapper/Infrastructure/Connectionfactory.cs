@@ -70,8 +70,8 @@ namespace CollegeMGT.Repo.Dapper.Infrastructure
             public static string uspGetAvailableTeachers = $"{dbSchema}.usp_GetAvailableTeachers";
             public static string uspGetCoursesAndNoOfTeachersAndStudents = $"{dbSchema}.usp_GetCoursesAndNoOfTeachersAndStudents";
             public static string uspGetStudentGradeByStudentId = $"{dbSchema}.usp_GetStudentGradeByStudentId";
-            public static string uspGetStudentByStudentId = $"{dbSchema}.usp_GetStudentByStudentId";
-
+            public static string uspGetStudentByStudentId = $"{dbSchema}.usp_GetStudentByStudentId"; 
+            public static string uspGetStudentGradeByStudentGradeId = $"{dbSchema}.usp_GetStudentGradeByStudentGradeId";
 
         }
     }

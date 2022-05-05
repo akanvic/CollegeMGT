@@ -19,7 +19,7 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
             _collegeDbContext = collegeDbContext;
         }
 
-        public async Task<StudentGrade> UpdateStudentGrade(RecordStudentGradeVm studentVm)
+        public async Task<StudentGrade> UpdateStudentGrade(UpdateStudentGradeVm studentVm)
         {
             var studentGradeFromDb = await _collegeDbContext.StudentGrades.FirstOrDefaultAsync(c => c.StudentGradeId == studentVm.StudentGradeVw.StudentGradeId);
 

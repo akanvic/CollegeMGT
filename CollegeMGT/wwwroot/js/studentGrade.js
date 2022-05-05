@@ -19,6 +19,9 @@ function loadDataTable() {
                 "render": function (data) {
                     return `
                             <div class="text-center">
+                                <a href="/Student/UpdateStudentGrade/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                                 <a onclick=Delete("/Student/DeleteStudentGrade/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                     <i class="fas fa-trash-alt"></i> 
                                 </a>

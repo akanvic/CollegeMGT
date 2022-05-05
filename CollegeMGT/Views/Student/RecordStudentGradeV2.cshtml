@@ -1,0 +1,61 @@
+﻿@model CollegeMGT.Core.View_Models.RecordStudentGradeVm;
+
+@{ 
+    var title = "Add StudentGrade";
+}
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-6 border-bottom align">
+                <h2 class="text-primary">@title</h2>
+            </div>
+            <div class="col-6 text-right">
+                 <a class="btn btn-primary" asp-action="Index"><i class="fas fa-arrow-left"></i> &nbsp; Back to Student List</a>   
+            </div>
+        </div>
+
+        <div class="col-8 pt-4">
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="StudentGradeVw!.StudentName"></label>
+                </div>
+                <div class="col-8">
+                    <input type="hidden" asp-for="StudentGradeVw!.StudentId" />
+                    <input asp-for="StudentGradeVw!.StudentName" class="form-control" />
+                    <span asp-validation-for="StudentGradeVw!.StudentName" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    Subject
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(c => c.StudentGradeVw.SubjectId, Model.SubjectList, "-Select a Subject", new { @class = "form-control" })
+                    <span asp-validation-for="StudentGradeVw.SubjectId" class="text-danger"></span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-4">
+                    Grade
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(c => c.StudentGradeVw!.GradeId, Model.GradeList, "-Select a Grade", new { @class = "form-control" })
+                    <span asp-validation-for="StudentGradeVw!.GradeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4  ">
+                        <partial name="_CreateAndBackToListButton" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+ }

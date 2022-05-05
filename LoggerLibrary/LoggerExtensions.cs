@@ -32,9 +32,9 @@ namespace LoggerLibrary
             return builder;
         }
 
-        public static WebApplication SerilogPipelineConfig<T>(this WebApplication builder) where T : class
+        public static IApplicationBuilder SerilogPipelineConfig<T>(this IApplicationBuilder builder) where T : class
         {
-            using var scope = builder.Services.CreateScope();
+            using var scope = builder.ApplicationServices.CreateScope();
             var services = scope.ServiceProvider;
             var loggerFactory = services.GetRequiredService<ILoggerFactory>();
             var logger = loggerFactory.CreateLogger<T>();

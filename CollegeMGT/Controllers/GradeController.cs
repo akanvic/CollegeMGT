@@ -2,6 +2,7 @@
 using CollegeMGT.Core.Models;
 using CollegeMGT.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CollegeMGT.Controllers
 {

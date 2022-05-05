@@ -5,6 +5,8 @@ using CollegeMGT.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 //using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CollegeMGT.Controllers
 {

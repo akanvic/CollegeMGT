@@ -26,7 +26,7 @@ namespace CollegeMGT.Repo.Data.Repository.Implementation
             if (studentGradeFromDb != null)
             {
                 studentGradeFromDb.GradeId = studentVm.StudentGradeVw!.GradeId;
-                studentGradeFromDb.SubjectId = studentVm.StudentGradeVw.SubjectId;
+                //studentGradeFromDb.SubjectId = studentVm.StudentGradeVw.SubjectId;
             }
             return studentGradeFromDb!;
         }

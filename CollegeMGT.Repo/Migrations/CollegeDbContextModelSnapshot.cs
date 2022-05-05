@@ -20,7 +20,7 @@ namespace CollegeMGT.Repo.Migrations
                 .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1, 1);
 
             modelBuilder.Entity("CollegeMGT.Core.Models.Course", b =>
                 {
@@ -28,7 +28,8 @@ namespace CollegeMGT.Repo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"),1 
+                        , 1);
 
                     b.Property<string>("CourseName")
                         .IsRequired()
@@ -45,7 +46,7 @@ namespace CollegeMGT.Repo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"), 1, 1);
 
                     b.Property<string>("GradeName")
                         .IsRequired()
@@ -65,7 +66,7 @@ namespace CollegeMGT.Repo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"), 1, 1);
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -93,7 +94,7 @@ namespace CollegeMGT.Repo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentGradeId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentGradeId"), 1, 1);
 
                     b.Property<int>("GradeId")
                         .HasColumnType("int");
@@ -121,7 +122,7 @@ namespace CollegeMGT.Repo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectId"), 1, 1);
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -148,7 +149,7 @@ namespace CollegeMGT.Repo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherId"), 1, 1);
 
                     b.Property<DateTime>("TeacherBirthDate")
                         .HasColumnType("datetime2");
